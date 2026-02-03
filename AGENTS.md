@@ -32,7 +32,7 @@ For projects that **already maintain their own skills**. We clone their repo as 
 
 ### Type 3: Hand-written Skills
 
-For skills that are written by Anthony Fu with his preferences, experience, tastes and best practices.
+For skills that are written by Eamon Hyland with his preferences, experience, tastes and best practices.
 
 You don't need to do anything about them unless being asked.
 
