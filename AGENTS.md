@@ -93,7 +93,7 @@ You don't need to do anything about them unless being asked.
 
 #### Creating New Skills
 
-- **Read** source docs from `sources/{project}/docs/`
+- **Read** source docs from `sources/{project}/docs/` (or `sources/{project}/www/docs/` for trpc)
 - **Read** the instructions in `instructions/{project}.md` for specific generation instructions if exists
 - **Understand** the documentation thoroughly
 - **Create** skill files in `skills/{project}/references/`

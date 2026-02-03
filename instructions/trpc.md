@@ -1,0 +1,2 @@
+- Exclude the "classic" react query integration, but do include the tanstack-react-query integration
+- Exclude next.js integration 
