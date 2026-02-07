@@ -11,7 +11,7 @@ PLEASE STRICTLY FOLLOW THE BEST PRACTICES FOR SKILL: https://platform.claude.com
 
 ## Skill Source Types
 
-There are two types of skill sources. The project lists are defined in `meta.ts`:
+There are four types of skill sources. The project lists are defined in `meta.ts`:
 
 ### Type 1: Generated Skills (`sources/`)
 
@@ -36,6 +36,14 @@ For skills that are written by Eamon Hyland with his preferences, experience, ta
 
 You don't need to do anything about them unless being asked.
 
+### Type 4: Web-based `llms.txt` Skills (`llms/`)
+
+For projects that provide documentation in the [`llms.txt`](https://llmstxt.org) format on their websites. We download these files and generate skills from them.
+
+- **Projects:** React, etc.
+- **Workflow:** Download `llms.txt` (and linked files) → Understand → Generate skills
+- **Source:** `llms/{project}/`
+
 ## Repository Structure
 
 ```
@@ -47,6 +55,10 @@ You don't need to do anything about them unless being asked.
 ├── sources/                    # Type 1: OSS repos (generate from docs)
 │   └── {project}/
 │       └── docs/               # Read documentation from here
+│
+├── llms/                       # Type 4: llms.txt files
+│   └── {project}/
+│       └── *.txt               # Downloaded llms.txt files
 │
 ├── vendor/                     # Type 2: Projects with existing skills (sync only)
 │   └── {project}/
@@ -62,13 +74,13 @@ You don't need to do anything about them unless being asked.
             └── *.md            # Individual skill files
 ```
 
-**Important:** For Type 1 (generated), the `skills/{project}/` name must match `sources/{project}/`. For Type 2 (synced), the output name is configured in `meta.ts` and may differ from the source skill name.
+**Important:** For Type 1 (generated), the `skills/{project}/` name must match `sources/{project}/`. For Type 2 (synced), the output name is configured in `meta.ts` and may differ from the source skill name. For Type 4 (generated from llms.txt), the `skills/{project}/` name must match `llms/{project}/`.
 
 ## Workflows
 
-### For Generated Skills (Type 1)
+### For Generated Skills (Type 1 & Type 4)
 
-#### Adding a New Project
+#### Adding a New Project (Type 1)
 
 1. **Add entry to `meta.ts`** in the `submodules` object:
    ```ts
@@ -86,6 +98,24 @@ You don't need to do anything about them unless being asked.
 
 3. **Follow the generation guide** below to create the skills
 
+#### Adding a New Project (Type 4)
+
+1. **Add entry to `meta.ts`** in the `llms` object:
+   ```ts
+   export const llms = {
+     // ... existing entries
+     'new-project': 'https://example.com/llms.txt',
+   }
+   ```
+
+2. **Run sync script** to download the `llms.txt` files:
+   ```bash
+   nr start init -y
+   ```
+   This will download the files to `llms/{project}/`
+
+3. **Follow the generation guide** below to create the skills
+
 #### General Instructions for Generation
 
 - Focus on agents capabilities and practical usage patterns. For user-facing guides, introductions, get-started, or common knowledge that LLM agents already know, you can skip those content.
@@ -93,23 +123,19 @@ You don't need to do anything about them unless being asked.
 
 #### Creating New Skills
 
-- **Read** source docs from `sources/{project}/docs/` (or `sources/{project}/www/docs/` for trpc)
+- **Read** source docs from `sources/{project}/docs/` (Type 1) or `llms/{project}/` (Type 4)
 - **Read** the instructions in `instructions/{project}.md` for specific generation instructions if exists
 - **Understand** the documentation thoroughly
 - **Create** skill files in `skills/{project}/references/`
 - **Create** `SKILL.md` index listing all skills
-- **Create** `GENERATION.md` with the source git SHA
+- **Create** `GENERATION.md` with the source git SHA (Type 1) or the download date (Type 4)
 
 #### Updating Generated Skills
 
-1. **Check** git diff since the SHA recorded in `GENERATION.md`:
-   ```bash
-   cd sources/{project}
-   git diff {old-sha}..HEAD -- docs/
-   ```
+1. **Check** git diff (Type 1) or re-download and check changes (Type 4)
 2. **Update** affected skill files based on changes
 3. **Update** `SKILL.md` with the new version of the tool/project and skills table.
-4. **Update** `GENERATION.md` with new SHA
+4. **Update** `GENERATION.md` with new metadata
 
 ### For Synced Skills (Type 2)
 
@@ -189,6 +215,15 @@ Tracking metadata for generated skills (Type 1):
 
 - **Source:** `sources/{project}`
 - **Git SHA:** `abc123def456...`
+- **Generated:** 2024-01-15
+```
+
+Tracking metadata for generated skills (Type 4):
+
+```markdown
+# Generation Info
+
+- **Source:** `llms/{project}`
 - **Generated:** 2024-01-15
 ```
 

@@ -4,7 +4,7 @@ import { dirname, join } from 'node:path'
 import process from 'node:process'
 import { fileURLToPath } from 'node:url'
 import * as p from '@clack/prompts'
-import { manual, submodules, vendors } from '../meta.ts'
+import { llms, manual, submodules, vendors } from '../meta.ts'
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
 const root = join(__dirname, '..')
@@ -58,7 +58,7 @@ function removeSubmodule(submodulePath: string): void {
 interface Project {
   name: string
   url: string
-  type: 'source' | 'vendor'
+  type: 'source' | 'vendor' | 'llms'
   path: string
 }
 
@@ -80,6 +80,12 @@ async function initSubmodules(skipPrompt = false) {
       url: (config as VendorConfig).source,
       type: 'vendor' as const,
       path: `vendor/${name}`,
+    })),
+    ...Object.entries(llms).map(([name, url]) => ({
+      name,
+      url,
+      type: 'llms' as const,
+      path: `llms/${name}`,
     })),
   ]
 
@@ -122,11 +128,11 @@ async function initSubmodules(skipPrompt = false) {
     }
   }
 
-  const existingProjects = allProjects.filter(p => submoduleExists(p.path))
-  const newProjects = allProjects.filter(p => !submoduleExists(p.path))
+  const existingProjects = allProjects.filter(p => p.type === 'llms' ? existsSync(join(root, p.path)) : submoduleExists(p.path))
+  const newProjects = allProjects.filter(p => p.type === 'llms' ? !existsSync(join(root, p.path)) : !submoduleExists(p.path))
 
   if (newProjects.length === 0) {
-    p.log.info('All submodules already initialized')
+    p.log.info('All projects already initialized')
     return
   }
 
@@ -148,7 +154,7 @@ async function initSubmodules(skipPrompt = false) {
   }
 
   for (const project of selected as Project[]) {
-    spinner.start(`Adding submodule: ${project.name}`)
+    spinner.start(`Initializing: ${project.name}`)
 
     // Ensure parent directory exists
     const parentDir = join(root, dirname(project.path))
@@ -157,11 +163,17 @@ async function initSubmodules(skipPrompt = false) {
     }
 
     try {
-      exec(`git submodule add ${project.url} ${project.path}`)
-      spinner.stop(`Added: ${project.name}`)
+      if (project.type === 'llms') {
+        await downloadLlms(project.name, project.url)
+        spinner.stop(`Downloaded: ${project.name}`)
+      }
+      else {
+        exec(`git submodule add ${project.url} ${project.path}`)
+        spinner.stop(`Added: ${project.name}`)
+      }
     }
     catch (e) {
-      spinner.stop(`Failed to add ${project.name}: ${e}`)
+      spinner.stop(`Failed to initialize ${project.name}: ${e}`)
     }
   }
 
@@ -170,6 +182,50 @@ async function initSubmodules(skipPrompt = false) {
   if (existingProjects.length > 0) {
     p.log.info(`Already initialized: ${existingProjects.map(p => p.name).join(', ')}`)
   }
+}
+
+async function downloadLlms(name: string, url: string) {
+  const dir = join(root, 'llms', name)
+  if (!existsSync(dir)) {
+    mkdirSync(dir, { recursive: true })
+  }
+
+  const response = await fetch(url)
+  if (!response.ok) {
+    throw new Error(`Failed to fetch ${url}: ${response.statusText}`)
+  }
+  let content = await response.text()
+
+  const baseUrl = new URL(url)
+  // Basic regex to find links to other llms.txt files or md/mdx files with "llms" in path
+  const links = [...content.matchAll(/\[.*?\]\((.*?llms.*?\.(?:txt|mdx?))\)/gi)]
+
+  for (const match of links) {
+    const originalLink = match[1]
+    const linkUrl = new URL(originalLink, baseUrl)
+
+    // Skip if it's the same URL as the entrypoint or different domain
+    if (linkUrl.href === baseUrl.href || linkUrl.hostname !== baseUrl.hostname)
+      continue
+
+    const fileName = originalLink.split('/').pop() || 'llms-linked.txt'
+
+    try {
+      const res = await fetch(linkUrl.href)
+      if (res.ok) {
+        const text = await res.text()
+        writeFileSync(join(dir, fileName), text)
+
+        // Rewrite the link to be relative in the index content
+        content = content.replaceAll(originalLink, `./${fileName}`)
+      }
+    }
+    catch (e) {
+      console.error(`Failed to download linked LLMS file ${linkUrl.href}: ${e}`)
+    }
+  }
+
+  writeFileSync(join(dir, 'llms.txt'), content)
 }
 
 async function syncSubmodules() {
@@ -184,6 +240,18 @@ async function syncSubmodules() {
   catch (e) {
     spinner.stop(`Failed to update submodules: ${e}`)
     return
+  }
+
+  // Update LLMS files
+  for (const [name, url] of Object.entries(llms)) {
+    spinner.start(`Updating LLMS: ${name}`)
+    try {
+      await downloadLlms(name, url)
+      spinner.stop(`Updated LLMS: ${name}`)
+    }
+    catch (e) {
+      spinner.stop(`Failed to update LLMS ${name}: ${e}`)
+    }
   }
 
   // Sync Type 2 skills
@@ -331,6 +399,11 @@ function getExpectedSkillNames(): Set<string> {
     expected.add(name)
   }
 
+  // Skills from llms
+  for (const name of Object.keys(llms)) {
+    expected.add(name)
+  }
+
   // Skills from vendors (use the output skill name)
   for (const config of Object.values(vendors)) {
     const vendorConfig = config as VendorConfig
@@ -375,22 +448,44 @@ async function cleanup(skipPrompt = false) {
       type: 'vendor' as const,
       path: `vendor/${name}`,
     })),
+    ...Object.entries(llms).map(([name, url]) => ({
+      name,
+      url,
+      type: 'llms' as const,
+      path: `llms/${name}`,
+    })),
   ]
 
   const existingSubmodulePaths = getExistingSubmodulePaths()
-  const expectedSubmodulePaths = new Set(allProjects.map(p => p.path))
-  const extraSubmodules = existingSubmodulePaths.filter(path => !expectedSubmodulePaths.has(path))
+  const existingLlmPaths = existsSync(join(root, 'llms'))
+    ? readdirSync(join(root, 'llms'), { withFileTypes: true })
+      .filter(entry => entry.isDirectory())
+      .map(entry => `llms/${entry.name}`)
+    : []
 
-  if (extraSubmodules.length > 0) {
-    p.log.warn(`Found ${extraSubmodules.length} submodule(s) not in meta.ts:`)
-    for (const path of extraSubmodules) {
-      p.log.message(`  - ${path}`)
+  const expectedPaths = new Set(allProjects.map(p => p.path))
+  const extraSubmodules = existingSubmodulePaths.filter(path => !expectedPaths.has(path))
+  const extraLlms = existingLlmPaths.filter(path => !expectedPaths.has(path))
+
+  if (extraSubmodules.length > 0 || extraLlms.length > 0) {
+    if (extraSubmodules.length > 0) {
+      p.log.warn(`Found ${extraSubmodules.length} submodule(s) not in meta.ts:`)
+      for (const path of extraSubmodules) {
+        p.log.message(`  - ${path}`)
+      }
+    }
+
+    if (extraLlms.length > 0) {
+      p.log.warn(`Found ${extraLlms.length} LLMS directory(s) not in meta.ts:`)
+      for (const path of extraLlms) {
+        p.log.message(`  - ${path}`)
+      }
     }
 
     const shouldRemove = skipPrompt
       ? true
       : await p.confirm({
-          message: 'Remove these extra submodules?',
+          message: 'Remove these extra projects and directories?',
           initialValue: true,
         })
 
@@ -409,6 +504,17 @@ async function cleanup(skipPrompt = false) {
         }
         catch (e) {
           spinner.stop(`Failed to remove ${submodulePath}: ${e}`)
+        }
+      }
+
+      for (const llmPath of extraLlms) {
+        spinner.start(`Removing LLMS directory: ${llmPath}`)
+        try {
+          rmSync(join(root, llmPath), { recursive: true })
+          spinner.stop(`Removed: ${llmPath}`)
+        }
+        catch (e) {
+          spinner.stop(`Failed to remove ${llmPath}: ${e}`)
         }
       }
     }
@@ -452,8 +558,8 @@ async function cleanup(skipPrompt = false) {
     }
   }
 
-  if (!hasChanges && extraSubmodules.length === 0 && extraSkills.length === 0) {
-    p.log.success('Everything is clean, no unused submodules or skills found')
+  if (!hasChanges && extraSubmodules.length === 0 && extraLlms.length === 0 && extraSkills.length === 0) {
+    p.log.success('Everything is clean, no unused projects or skills found')
   }
   else if (hasChanges) {
     p.log.success('Cleanup completed')
@@ -506,10 +612,10 @@ async function main() {
   const action = await p.select({
     message: 'What would you like to do?',
     options: [
-      { value: 'sync', label: 'Sync submodules', hint: 'Pull latest and sync Type 2 skills' },
-      { value: 'init', label: 'Init submodules', hint: 'Add new submodules' },
-      { value: 'check', label: 'Check updates', hint: 'See available updates' },
-      { value: 'cleanup', label: 'Cleanup', hint: 'Remove unused submodules and skills' },
+      { value: 'sync', label: 'Sync projects', hint: 'Pull latest and sync Type 2 & 4 skills' },
+      { value: 'init', label: 'Init projects', hint: 'Add new submodules or LLMS' },
+      { value: 'check', label: 'Check updates', hint: 'See available updates (git only)' },
+      { value: 'cleanup', label: 'Cleanup', hint: 'Remove unused projects and skills' },
     ],
   })
 

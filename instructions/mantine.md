@@ -1,0 +1,1 @@
+- Latest version of mantine is v8 (llms see to be more familiar with v7)

@@ -20,6 +20,13 @@ export const submodules = {
 }
 
 /**
+ * Download `llms.txt` from websites and generate skills
+ */
+export const llms: Record<string, string> = {
+  'mantine': 'https://mantine.dev/llms.txt',
+}
+
+/**
  * Already generated skills, sync with their `skills/` directory
  */
 export const vendors: Record<string, VendorSkillMeta> = {

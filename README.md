@@ -42,6 +42,7 @@ Generated from official documentation and fine-tuned by Eamon.
 |-------|-------------|--------|
 | [vitest](skills/vitest) | Vitest - unit testing framework powered by Vite | [vitest-dev/vitest](https://github.com/vitest-dev/vitest) |
 | [trpc](skills/trpc) | trpc - atomic CSS engine, presets, transformers | [trpc/trpc](https://github.com/trpc/trpc) |
+| [mantine](skills/mantine) | Mantine UI - fully featured React components library | [mantine.dev](https://mantine.dev) |
 
 ### Vendored Skills
 
