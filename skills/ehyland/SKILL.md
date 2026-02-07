@@ -109,7 +109,6 @@ Not all scripts are relevant to all projects e.g. library packages will not have
     "dev": "bun run --watch src/index.ts",
     
     "db:generate": "drizzle-kit generate",
-    "db:migrate": "drizzle-kit migrate",
     "db:studio": "drizzle-kit studio",
     
     "typecheck": "tsc --noEmit",
@@ -183,4 +182,5 @@ Use npm dependencies `simple-git-hooks` & `lint-staged`
 
 | Topic | Description | Reference |
 |-------|-------------|-----------|
+| SQLite with Drizzle | SQLite setup with Drizzle ORM in Bun runtime, schema, migrations, testing | [sqlite-drizzle](references/sqlite-drizzle.md) |
 | Deployment and CI/CD Setup | Buildkite pipelines, docker configuration | [deployment](references/deployment.md) |
