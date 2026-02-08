@@ -80,7 +80,12 @@ process.env.DATABASE_URL = ":memory:";
 - Prefer trpc with react query for fullstack projects (when the server and client are in the same package)
 - Otherwise prefer graphql
 
-### TypeScript Config
+### TypeScript
+
+- Never use `@ts-ignore`
+- Never use `as any` casting or `as unknown as <some-other-type>`
+
+Preferred `tsconfig.json` config
 
 ```json
 {
@@ -89,6 +94,10 @@ process.env.DATABASE_URL = ":memory:";
     "module": "ESNext",
     "moduleResolution": "bundler",
     "strict": true,
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitAny": true,
+    "noImplicitReturns": true,
+    "noUncheckedIndexedAccess": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
     "resolveJsonModule": true,
