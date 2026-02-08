@@ -3,7 +3,7 @@ name: ehyland
 description: Eamon Hyland's opinionated tooling and conventions for TypeScript projects. Use when setting up new projects, configuring a linter, monorepos, library publishing, or when the user mentions Eamon's preferences.
 metadata:
   author: Eamon Hyland
-  version: "2026.2.03"
+  version: "2026.2.08"
 ---
 
 # Eamon Hyland's Preferences
@@ -182,5 +182,6 @@ Use npm dependencies `simple-git-hooks` & `lint-staged`
 
 | Topic | Description | Reference |
 |-------|-------------|-----------|
+| Bun and tRPC Setup | Configuration for Bun.serve with native routes and tRPC fetch adapter | [bun-trpc-setup](references/bun-trpc-setup.md) |
 | SQLite with Drizzle | SQLite setup with Drizzle ORM in Bun runtime, schema, migrations, testing | [sqlite-drizzle](references/sqlite-drizzle.md) |
 | Deployment and CI/CD Setup | Buildkite pipelines, docker configuration | [deployment](references/deployment.md) |
