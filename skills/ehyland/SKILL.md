@@ -77,8 +77,8 @@ process.env.DATABASE_URL = ":memory:";
 
 ### client -> server communication
 
-- Prefer trpc with react query for fullstack projects (when the server and client are in the same package)
-- Otherwise prefer graphql
+- Prefer trpc with react query for fullstack projects (when the server and client are in the same package). See [bun-trpc-setup](./references/bun-trpc-setup.md).
+- Otherwise prefer graphql. See [bun-graphql-setup](./references/bun-graphql-setup.md).
 
 ### TypeScript
 
@@ -192,5 +192,6 @@ Use npm dependencies `simple-git-hooks` & `lint-staged`
 | Topic | Description | Reference |
 |-------|-------------|-----------|
 | Bun and tRPC Setup | Configuration for Bun.serve with native routes and tRPC fetch adapter | [bun-trpc-setup](./references/bun-trpc-setup.md) |
+| Bun and GraphQL Setup | Configuration for Bun.serve with Yoga GraphQL | [bun-graphql-setup](./references/bun-graphql-setup.md) |
 | SQLite with Drizzle | SQLite setup with Drizzle ORM in Bun runtime, schema, migrations, testing | [sqlite-drizzle](./references/sqlite-drizzle.md) |
 | Deployment and CI/CD Setup | Buildkite pipelines, docker configuration | [deployment](./references/deployment.md) |
