@@ -15,23 +15,23 @@ tRPC allows you to build & consume fully typesafe APIs without schemas or code g
 
 | Topic | Description | Reference |
 |-------|-------------|-----------|
-| Routers | Initializing tRPC and defining routers | [core-router](references/core-router.md) |
-| Procedures | Defining queries, mutations, and subscriptions | [core-procedure](references/core-procedure.md) |
-| Validators | Input and output validation using Zod/Standard Schema | [core-validator](references/core-validator.md) |
-| Context | Defining and creating context (inner/outer) | [core-context](references/core-context.md) |
-| Middlewares | Procedure middlewares and context extension | [core-middleware](references/core-middleware.md) |
-| Vanilla Client | Setting up and using the vanilla tRPC client | [core-client-vanilla](references/core-client-vanilla.md) |
+| Routers | Initializing tRPC and defining routers | [core-router](./references/core-router.md) |
+| Procedures | Defining queries, mutations, and subscriptions | [core-procedure](./references/core-procedure.md) |
+| Validators | Input and output validation using Zod/Standard Schema | [core-validator](./references/core-validator.md) |
+| Context | Defining and creating context (inner/outer) | [core-context](./references/core-context.md) |
+| Middlewares | Procedure middlewares and context extension | [core-middleware](./references/core-middleware.md) |
+| Vanilla Client | Setting up and using the vanilla tRPC client | [core-client-vanilla](./references/core-client-vanilla.md) |
 
 ## Features
 
 | Topic | Description | Reference |
 |-------|-------------|-----------|
-| Error Handling | Throwing and handling TRPCError | [features-error-handling](references/features-error-handling.md) |
-| Links | Understanding and using tRPC links | [features-links](references/features-links.md) |
-| TanStack Query | Integration with TanStack React Query | [features-tanstack-react-query](references/features-tanstack-react-query.md) |
+| Error Handling | Throwing and handling TRPCError | [features-error-handling](./references/features-error-handling.md) |
+| Links | Understanding and using tRPC links | [features-links](./references/features-links.md) |
+| TanStack Query | Integration with TanStack React Query | [features-tanstack-react-query](./references/features-tanstack-react-query.md) |
 
 ## Best Practices
 
 | Topic | Description | Reference |
 |-------|-------------|-----------|
-| Base Procedures | Creating and using reusable base procedures | [best-practices-base-procedures](references/best-practices-base-procedures.md) |
+| Base Procedures | Creating and using reusable base procedures | [best-practices-base-procedures](./references/best-practices-base-procedures.md) |
