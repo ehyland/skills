@@ -40,13 +40,13 @@ metadata:
 
 ## Core References
 
-| Topic                      | Description                                                           | Reference                                              |
-| -------------------------- | --------------------------------------------------------------------- | ------------------------------------------------------ |
-| Server Configuration       | Environment variables and validation with Zod                         | [server-config](./references/server-config.md)         |
-| Package Scripts            | Recommended scripts for development and CI                            | [scripts](./references/scripts.md)                     |
-| Linting & Formatting       | Oxlint and Oxfmt configuration                                        | [linting](./references/linting.md)                     |
-| Git Hooks                  | Simple-git-hooks and lint-staged setup                                | [git-hooks](./references/git-hooks.md)                 |
-| Bun and tRPC Setup         | Configuration for Bun.serve with native routes and tRPC fetch adapter | [bun-trpc-setup](./references/bun-trpc-setup.md)       |
-| Bun and GraphQL Setup      | Configuration for Bun.serve with Yoga GraphQL                         | [bun-graphql-setup](./references/bun-graphql-setup.md) |
-| SQLite with Drizzle        | SQLite setup with Drizzle ORM in Bun runtime                          | [sqlite-drizzle](./references/sqlite-drizzle.md)       |
-| Deployment and CI/CD Setup | Buildkite pipelines, docker configuration                             | [deployment](./references/deployment.md)               |
+| Topic                      | Description                                     | Reference                                              |
+| -------------------------- | ----------------------------------------------- | ------------------------------------------------------ |
+| Server Configuration       | Environment variables and validation with Zod   | [server-config](./references/server-config.md)         |
+| Package Scripts            | Recommended scripts for development and CI      | [scripts](./references/scripts.md)                     |
+| Linting & Formatting       | Oxlint and Oxfmt configuration                  | [linting](./references/linting.md)                     |
+| Git Hooks                  | Simple-git-hooks and lint-staged setup          | [git-hooks](./references/git-hooks.md)                 |
+| Bun and tRPC SPA Setup     | Guidance for setting up a SPA with Bun and trpc | [bun-trpc-setup](./references/bun-trpc-setup.md)       |
+| Bun and GraphQL Setup      | Configuration for Bun.serve with Yoga GraphQL   | [bun-graphql-setup](./references/bun-graphql-setup.md) |
+| SQLite with Drizzle        | SQLite setup with Drizzle ORM in Bun runtime    | [sqlite-drizzle](./references/sqlite-drizzle.md)       |
+| Deployment and CI/CD Setup | Buildkite pipelines, docker configuration       | [deployment](./references/deployment.md)               |

@@ -1,11 +1,13 @@
 ---
 name: bun-trpc-setup
-description: Configuration for Bun.serve with native routes and tRPC fetch adapter
+description: Guidance for setting up a SPA with Bun and trpc
 ---
 
 # Bun with tRPC Setup
 
-When using Bun with tRPC, prefer using `Bun.serve` with the native `routes` property instead of a manual `fetch` handler.
+Always use `Bun.serve` with `routes` property instead of a manual `fetch` handler.
+
+For bundling the frontend, don't use `Bun.build`. Instead you can just import the html entry file and use it in the router (see example bellow)
 
 ## Setup Routes
 
