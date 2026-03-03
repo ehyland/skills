@@ -36,8 +36,8 @@ Define styles in `.module.css` and reference them via `className`.
 ```
 
 ```tsx
-import classes from './MyComponent.module.css';
-<Box className={classes.root} />
+import classes from "./MyComponent.module.css";
+<Box className={classes.root} />;
 ```
 
 ## Styles API
@@ -45,7 +45,7 @@ import classes from './MyComponent.module.css';
 Used to style internal elements of a Mantine component. Each component defines a list of "selectors".
 
 ```tsx
-import classes from './CustomTextInput.module.css';
+import classes from "./CustomTextInput.module.css";
 
 // Styles internal 'input' and 'label' elements
 <TextInput
@@ -54,12 +54,13 @@ import classes from './CustomTextInput.module.css';
     input: classes.customInput,
     label: classes.customLabel,
   }}
-/>
+/>;
 ```
 
 ## CSS Variables
 
 Mantine exposes theme tokens as CSS variables:
+
 - Colors: `var(--mantine-color-blue-6)`
 - Spacing: `var(--mantine-spacing-md)`
 - Radius: `var(--mantine-radius-sm)`

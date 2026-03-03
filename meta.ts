@@ -1,7 +1,7 @@
 export interface VendorSkillMeta {
-  official?: boolean
-  source: string
-  skills: Record<string, string> // sourceSkillName -> outputSkillName
+  official?: boolean;
+  source: string;
+  skills: Record<string, string>; // sourceSkillName -> outputSkillName
 }
 
 /**
@@ -14,47 +14,45 @@ export const submodules = {
   // unocss: 'https://github.com/unocss/unocss',
   // pnpm: 'https://github.com/pnpm/pnpm.io',
   // pinia: 'https://github.com/vuejs/pinia',
-  vitest: 'https://github.com/vitest-dev/vitest',
-  trpc: 'https://github.com/trpc/trpc',
+  vitest: "https://github.com/vitest-dev/vitest",
+  trpc: "https://github.com/trpc/trpc",
   // vitepress: 'https://github.com/vuejs/vitepress',
-}
+};
 
 /**
  * Download `llms.txt` from websites and generate skills
  */
 export const llms: Record<string, string> = {
-  'mantine': 'https://mantine.dev/llms.txt',
-}
+  mantine: "https://mantine.dev/llms.txt",
+};
 
 /**
  * Already generated skills, sync with their `skills/` directory
  */
 export const vendors: Record<string, VendorSkillMeta> = {
-  'tsdown': {
+  tsdown: {
     official: true,
-    source: 'https://github.com/rolldown/tsdown',
+    source: "https://github.com/rolldown/tsdown",
     skills: {
-      tsdown: 'tsdown',
+      tsdown: "tsdown",
     },
   },
-  'turborepo': {
+  turborepo: {
     official: true,
-    source: 'https://github.com/vercel/turborepo',
+    source: "https://github.com/vercel/turborepo",
     skills: {
-      turborepo: 'turborepo',
+      turborepo: "turborepo",
     },
   },
-  'web-design-guidelines': {
-    source: 'https://github.com/vercel-labs/agent-skills',
+  "web-design-guidelines": {
+    source: "https://github.com/vercel-labs/agent-skills",
     skills: {
-      'web-design-guidelines': 'web-design-guidelines',
+      "web-design-guidelines": "web-design-guidelines",
     },
   },
-}
+};
 
 /**
  * Hand-written skills with Eamon Hyland's preferences/tastes/recommendations
  */
-export const manual = [
-  'ehyland',
-]
+export const manual = ["ehyland"];

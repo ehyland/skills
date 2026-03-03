@@ -12,19 +12,19 @@ description: Form management with @mantine/form
 Mantine 8 defaults to `mode: 'uncontrolled'` for better performance.
 
 ```tsx
-import { useForm } from '@mantine/form';
+import { useForm } from "@mantine/form";
 
 const form = useForm({
-  mode: 'uncontrolled', // recommended
+  mode: "uncontrolled", // recommended
   initialValues: {
-    email: '',
+    email: "",
     age: 0,
     terms: false,
   },
 
   validate: {
-    email: (value) => (/^\S+@\S+$/.test(value) ? null : 'Invalid email'),
-    age: (value) => (value < 18 ? 'Must be at least 18' : null),
+    email: (value) => (/^\S+@\S+$/.test(value) ? null : "Invalid email"),
+    age: (value) => (value < 18 ? "Must be at least 18" : null),
   },
 });
 
@@ -32,18 +32,18 @@ return (
   <form onSubmit={form.onSubmit((values) => console.log(values))}>
     <TextInput
       label="Email"
-      {...form.getInputProps('email')}
-      key={form.key('email')} // Required for uncontrolled mode
+      {...form.getInputProps("email")}
+      key={form.key("email")} // Required for uncontrolled mode
     />
     <NumberInput
       label="Age"
-      {...form.getInputProps('age')}
-      key={form.key('age')}
+      {...form.getInputProps("age")}
+      key={form.key("age")}
     />
     <Checkbox
       label="Terms"
-      {...form.getInputProps('terms', { type: 'checkbox' })}
-      key={form.key('terms')}
+      {...form.getInputProps("terms", { type: "checkbox" })}
+      key={form.key("terms")}
     />
     <Button type="submit">Submit</Button>
   </form>
@@ -57,29 +57,29 @@ return (
 ```tsx
 const form = useForm({
   initialValues: {
-    user: { firstName: '', lastName: '' }
-  }
+    user: { firstName: "", lastName: "" },
+  },
 });
 
-<TextInput {...form.getInputProps('user.firstName')} />
+<TextInput {...form.getInputProps("user.firstName")} />;
 ```
 
 ### List Items (Arrays)
 
 ```tsx
-form.insertListItem('employees', { name: '', active: true });
-form.removeListItem('employees', index);
-form.reorderListItem('employees', { from: 1, to: 0 });
+form.insertListItem("employees", { name: "", active: true });
+form.removeListItem("employees", index);
+form.reorderListItem("employees", { from: 1, to: 0 });
 ```
 
 ### Manual Validation & Errors
 
 ```tsx
 form.validate(); // validates all fields
-form.validateField('email');
+form.validateField("email");
 
-form.setFieldError('email', 'Email already taken');
-form.setErrors({ email: 'Error', age: 'Too young' });
+form.setFieldError("email", "Email already taken");
+form.setErrors({ email: "Error", age: "Too young" });
 
 form.reset(); // resets to initialValues
 ```

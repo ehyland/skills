@@ -12,7 +12,7 @@ Context holds data accessible to all procedures, such as database connections, u
 Pass the context type to `initTRPC`.
 
 ```ts
-import { initTRPC } from '@trpc/server';
+import { initTRPC } from "@trpc/server";
 
 export const createContext = async (opts: CreateNextContextOptions) => {
   const session = await getSession(opts.req);

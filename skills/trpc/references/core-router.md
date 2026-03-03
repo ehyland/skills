@@ -12,7 +12,7 @@ Routers are the foundation of a tRPC API. They group procedures and other router
 tRPC should be initialized exactly once per application.
 
 ```ts
-import { initTRPC } from '@trpc/server';
+import { initTRPC } from "@trpc/server";
 
 const t = initTRPC.create();
 
@@ -25,10 +25,10 @@ export const publicProcedure = t.procedure;
 A router is defined by passing an object of procedures to `t.router()`.
 
 ```ts
-import { publicProcedure, router } from './trpc';
+import { publicProcedure, router } from "./trpc";
 
 const appRouter = router({
-  greeting: publicProcedure.query(() => 'hello tRPC!'),
+  greeting: publicProcedure.query(() => "hello tRPC!"),
 });
 
 // Export only the type for the client
@@ -41,7 +41,7 @@ Routers can be nested to organize the API.
 
 ```ts
 const userRouter = router({
-  list: publicProcedure.query(() => [{ id: '1', name: 'Alice' }]),
+  list: publicProcedure.query(() => [{ id: "1", name: "Alice" }]),
 });
 
 const appRouter = router({

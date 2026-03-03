@@ -12,24 +12,24 @@ tRPC provides a standardized way to throw and handle errors across the boundary.
 Use the `TRPCError` class on the server.
 
 ```ts
-import { TRPCError } from '@trpc/server';
+import { TRPCError } from "@trpc/server";
 
 throw new TRPCError({
-  code: 'NOT_FOUND',
-  message: 'User does not exist',
+  code: "NOT_FOUND",
+  message: "User does not exist",
   cause: originalError, // Optional
 });
 ```
 
 ## Common Error Codes
 
-| Code | HTTP Status |
-|------|-------------|
-| `BAD_REQUEST` | 400 |
-| `UNAUTHORIZED` | 401 |
-| `FORBIDDEN` | 403 |
-| `NOT_FOUND` | 404 |
-| `INTERNAL_SERVER_ERROR` | 500 |
+| Code                    | HTTP Status |
+| ----------------------- | ----------- |
+| `BAD_REQUEST`           | 400         |
+| `UNAUTHORIZED`          | 401         |
+| `FORBIDDEN`             | 403         |
+| `NOT_FOUND`             | 404         |
+| `INTERNAL_SERVER_ERROR` | 500         |
 
 ## Error Formatting
 
@@ -42,7 +42,8 @@ const t = initTRPC.create({
       ...shape,
       data: {
         ...shape.data,
-        zodError: error.cause instanceof ZodError ? error.cause.flatten() : null,
+        zodError:
+          error.cause instanceof ZodError ? error.cause.flatten() : null,
       },
     };
   },

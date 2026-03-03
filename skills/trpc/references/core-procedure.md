@@ -13,12 +13,10 @@ Used for fetching data. They should not have side effects.
 
 ```ts
 const appRouter = router({
-  getUser: publicProcedure
-    .input(z.string())
-    .query(async (opts) => {
-      const { input } = opts;
-      return await db.user.findUnique({ where: { id: input } });
-    }),
+  getUser: publicProcedure.input(z.string()).query(async (opts) => {
+    const { input } = opts;
+    return await db.user.findUnique({ where: { id: input } });
+  }),
 });
 ```
 
@@ -44,7 +42,7 @@ Used for real-time data using WebSockets or SSE.
 ```ts
 const appRouter = router({
   onMessage: publicProcedure.subscription(() => {
-    return ee.on('message'); // Returns an AsyncIterable
+    return ee.on("message"); // Returns an AsyncIterable
   }),
 });
 ```

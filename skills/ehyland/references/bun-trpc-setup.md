@@ -32,7 +32,9 @@ export function createServer(options: ServerOptions) {
           router: appRouter,
           createContext: () => ({}),
           onError: ({ path, error }) => {
-            console.error(`❌ tRPC failed on ${path ?? "<no-path>"}: ${error.message}`);
+            console.error(
+              `❌ tRPC failed on ${path ?? "<no-path>"}: ${error.message}`,
+            );
           },
         });
       },

@@ -26,9 +26,15 @@ import { Link } from 'react-router-dom';
 ## Layout Components
 
 ### AppShell
+
 Structure for application layouts.
+
 ```tsx
-<AppShell header={{ height: 60 }} navbar={{ width: 300, breakpoint: 'sm' }} padding="md">
+<AppShell
+  header={{ height: 60 }}
+  navbar={{ width: 300, breakpoint: "sm" }}
+  padding="md"
+>
   <AppShell.Header>Header</AppShell.Header>
   <AppShell.Navbar>Navbar</AppShell.Navbar>
   <AppShell.Main>Main content</AppShell.Main>
@@ -36,28 +42,38 @@ Structure for application layouts.
 ```
 
 ### Flex, Group, Stack
+
 - `Flex`: Wrapper for `display: flex`.
 - `Group`: Horizontal flex container with fixed spacing.
 - `Stack`: Vertical flex container.
 
 ### Grid & SimpleGrid
+
 - `Grid`: 12-column responsive grid.
 - `SimpleGrid`: Equal-width column grid (easier to manage for many items).
 
 ## Overlays
 
 ### Modal & Drawer
+
 Use `useDisclosure` for state.
+
 ```tsx
 const [opened, { open, close }] = useDisclosure(false);
-<Modal opened={opened} onClose={close} title="Modal Title">Content</Modal>
+<Modal opened={opened} onClose={close} title="Modal Title">
+  Content
+</Modal>;
 ```
 
 ### Popover & Menu
+
 Handle relative positioning automatically.
+
 ```tsx
 <Menu shadow="md" width={200}>
-  <Menu.Target><Button>Toggle menu</Button></Menu.Target>
+  <Menu.Target>
+    <Button>Toggle menu</Button>
+  </Menu.Target>
   <Menu.Dropdown>
     <Menu.Item>Settings</Menu.Item>
     <Menu.Item color="red">Delete account</Menu.Item>

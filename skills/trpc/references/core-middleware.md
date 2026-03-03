@@ -29,7 +29,7 @@ Middlewares can modify the context for subsequent middlewares and the procedure 
 ```ts
 export const protectedProcedure = t.procedure.use(async (opts) => {
   if (!opts.ctx.session) {
-    throw new TRPCError({ code: 'UNAUTHORIZED' });
+    throw new TRPCError({ code: "UNAUTHORIZED" });
   }
   return opts.next({
     ctx: {

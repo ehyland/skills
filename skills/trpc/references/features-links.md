@@ -13,10 +13,10 @@ The `httpBatchLink` is the most common link. It batches multiple concurrent proc
 
 ```ts
 httpBatchLink({
-  url: 'http://localhost:3000/trpc',
+  url: "http://localhost:3000/trpc",
   // You can specify how many calls to batch
   maxBatchSize: 10,
-})
+});
 ```
 
 ## Terminating Links
@@ -29,10 +29,7 @@ Links are executed in order. You can add middleware-like links (e.g., `loggerLin
 
 ```ts
 const client = createTRPCClient<AppRouter>({
-  links: [
-    loggerLink(),
-    httpBatchLink({ url: '...' }),
-  ],
+  links: [loggerLink(), httpBatchLink({ url: "..." })],
 });
 ```
 

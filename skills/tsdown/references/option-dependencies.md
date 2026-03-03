@@ -30,14 +30,14 @@ Mark dependencies as external (not bundled):
 
 ```ts
 export default defineConfig({
-  entry: ['src/index.ts'],
+  entry: ["src/index.ts"],
   external: [
-    'react',              // Single package
-    'react-dom',
-    /^@myorg\//,         // Regex pattern (all @myorg/* packages)
-    /^lodash/,           // All lodash packages
+    "react", // Single package
+    "react-dom",
+    /^@myorg\//, // Regex pattern (all @myorg/* packages)
+    /^lodash/, // All lodash packages
   ],
-})
+});
 ```
 
 ### `noExternal`
@@ -46,12 +46,12 @@ Force dependencies to be bundled:
 
 ```ts
 export default defineConfig({
-  entry: ['src/index.ts'],
+  entry: ["src/index.ts"],
   noExternal: [
-    'some-package',      // Bundle this even if in dependencies
-    'vendor-lib',
+    "some-package", // Bundle this even if in dependencies
+    "vendor-lib",
   ],
-})
+});
 ```
 
 ### `skipNodeModulesBundle`
@@ -60,9 +60,9 @@ Skip resolving and bundling ALL node_modules:
 
 ```ts
 export default defineConfig({
-  entry: ['src/index.ts'],
+  entry: ["src/index.ts"],
   skipNodeModulesBundle: true,
-})
+});
 ```
 
 **Result:** No dependencies from node_modules are parsed or bundled.
@@ -73,68 +73,64 @@ export default defineConfig({
 
 ```ts
 export default defineConfig({
-  entry: ['src/index.tsx'],
-  format: ['esm', 'cjs'],
+  entry: ["src/index.tsx"],
+  format: ["esm", "cjs"],
   external: [
-    'react',
-    'react-dom',
-    /^react\//,          // react/jsx-runtime, etc.
+    "react",
+    "react-dom",
+    /^react\//, // react/jsx-runtime, etc.
   ],
   dts: true,
-})
+});
 ```
 
 ### Utility Library with Shared Deps
 
 ```ts
 export default defineConfig({
-  entry: ['src/index.ts'],
-  format: ['esm', 'cjs'],
+  entry: ["src/index.ts"],
+  format: ["esm", "cjs"],
   // Bundle lodash utilities
-  noExternal: ['lodash-es'],
+  noExternal: ["lodash-es"],
   dts: true,
-})
+});
 ```
 
 ### Monorepo Package
 
 ```ts
 export default defineConfig({
-  entry: ['src/index.ts'],
-  format: ['esm', 'cjs'],
+  entry: ["src/index.ts"],
+  format: ["esm", "cjs"],
   external: [
-    /^@mycompany\//,     // Don't bundle other workspace packages
+    /^@mycompany\//, // Don't bundle other workspace packages
   ],
   dts: true,
-})
+});
 ```
 
 ### CLI Tool (Bundle Everything)
 
 ```ts
 export default defineConfig({
-  entry: ['src/cli.ts'],
-  format: ['esm'],
-  platform: 'node',
+  entry: ["src/cli.ts"],
+  format: ["esm"],
+  platform: "node",
   // Bundle all dependencies for standalone CLI
   noExternal: [/.*/],
   shims: true,
-})
+});
 ```
 
 ### Library with Specific Externals
 
 ```ts
 export default defineConfig({
-  entry: ['src/index.ts'],
-  format: ['esm', 'cjs'],
-  external: [
-    'vue',
-    '@vue/runtime-core',
-    '@vue/reactivity',
-  ],
+  entry: ["src/index.ts"],
+  format: ["esm", "cjs"],
+  external: ["vue", "@vue/runtime-core", "@vue/reactivity"],
   dts: true,
-})
+});
 ```
 
 ## Declaration Files
@@ -147,14 +143,15 @@ Use TypeScript resolver for complex third-party types:
 
 ```ts
 export default defineConfig({
-  entry: ['src/index.ts'],
+  entry: ["src/index.ts"],
   dts: {
-    resolver: 'tsc',     // Use TypeScript resolver instead of Oxc
+    resolver: "tsc", // Use TypeScript resolver instead of Oxc
   },
-})
+});
 ```
 
 **When to use `tsc` resolver:**
+
 - Types in `@types/*` packages with non-standard naming (e.g., `@types/babel__generator`)
 - Complex type dependencies
 - Issues with default Oxc resolver
@@ -183,8 +180,8 @@ tsdown --no-external some-package
 ```ts
 // Don't bundle framework
 export default defineConfig({
-  external: ['vue', 'react', 'solid-js', 'svelte'],
-})
+  external: ["vue", "react", "solid-js", "svelte"],
+});
 ```
 
 ### Standalone App
@@ -194,7 +191,7 @@ export default defineConfig({
 export default defineConfig({
   noExternal: [/.*/],
   skipNodeModulesBundle: false,
-})
+});
 ```
 
 ### Shared Library
@@ -202,9 +199,9 @@ export default defineConfig({
 ```ts
 // Bundle only specific utils
 export default defineConfig({
-  external: [/.*/],        // External by default
-  noExternal: ['tiny-utils'], // Except this one
-})
+  external: [/.*/], // External by default
+  noExternal: ["tiny-utils"], // Except this one
+});
 ```
 
 ### Monorepo Package
@@ -213,14 +210,14 @@ export default defineConfig({
 // External workspace packages, bundle utilities
 export default defineConfig({
   external: [
-    /^@workspace\//,     // Other workspace packages
-    'react',
-    'react-dom',
+    /^@workspace\//, // Other workspace packages
+    "react",
+    "react-dom",
   ],
   noExternal: [
-    'lodash-es',         // Bundle utility libraries
+    "lodash-es", // Bundle utility libraries
   ],
-})
+});
 ```
 
 ## Troubleshooting
@@ -241,8 +238,8 @@ Or explicitly externalize:
 
 ```ts
 export default defineConfig({
-  external: ['should-be-external'],
-})
+  external: ["should-be-external"],
+});
 ```
 
 ### Missing Dependency at Runtime
@@ -261,8 +258,8 @@ Or bundle it:
 
 ```ts
 export default defineConfig({
-  noExternal: ['needed-package'],
-})
+  noExternal: ["needed-package"],
+});
 ```
 
 ### Type Resolution Errors
@@ -272,23 +269,26 @@ Use TypeScript resolver for complex types:
 ```ts
 export default defineConfig({
   dts: {
-    resolver: 'tsc',
+    resolver: "tsc",
   },
-})
+});
 ```
 
 ## Summary
 
 **Default behavior:**
+
 - `dependencies` & `peerDependencies` → External
 - `devDependencies` & phantom deps → Bundled if imported
 
 **Override:**
+
 - `external` → Force external
 - `noExternal` → Force bundled
 - `skipNodeModulesBundle` → Skip all node_modules
 
 **Declaration files:**
+
 - Same bundling logic as JavaScript
 - Use `resolver: 'tsc'` for complex types
 

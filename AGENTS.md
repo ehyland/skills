@@ -4,7 +4,7 @@ Generate [Agent Skills](https://agentskills.io/home) from project documentation.
 
 PLEASE STRICTLY FOLLOW THE BEST PRACTICES FOR SKILL: https://platform.claude.com/docs/en/agents-and-tools/agent-skills/best-practices
 
-- Focus on agents capabilities and practical usage patterns. 
+- Focus on agents capabilities and practical usage patterns.
 - Ignore user-facing guides, introductions, get-started, install guides, etc.
 - Ignore content that LLM agents already confident about in their training data.
 - Make the skill as concise as possible, avoid creating too many references.
@@ -51,7 +51,7 @@ For projects that provide documentation in the [`llms.txt`](https://llmstxt.org)
 ├── meta.ts                     # Project metadata (repos & URLs)
 ├── instructions/               # Instructions for generating skills
 │   └── {project}.md            # Instructions for generating skills for {project}
-│ 
+│
 ├── sources/                    # Type 1: OSS repos (generate from docs)
 │   └── {project}/
 │       └── docs/               # Read documentation from here
@@ -83,17 +83,20 @@ For projects that provide documentation in the [`llms.txt`](https://llmstxt.org)
 #### Adding a New Project (Type 1)
 
 1. **Add entry to `meta.ts`** in the `submodules` object:
+
    ```ts
    export const submodules = {
      // ... existing entries
-     'new-project': 'https://github.com/org/repo',
-   }
+     "new-project": "https://github.com/org/repo",
+   };
    ```
 
 2. **Run sync script** to clone the submodule:
+
    ```bash
    nr start init -y
    ```
+
    This will clone the repository to `sources/{project}/`
 
 3. **Follow the generation guide** below to create the skills
@@ -101,17 +104,20 @@ For projects that provide documentation in the [`llms.txt`](https://llmstxt.org)
 #### Adding a New Project (Type 4)
 
 1. **Add entry to `meta.ts`** in the `llms` object:
+
    ```ts
    export const llms = {
      // ... existing entries
-     'new-project': 'https://example.com/llms.txt',
-   }
+     "new-project": "https://example.com/llms.txt",
+   };
    ```
 
 2. **Run sync script** to download the `llms.txt` files:
+
    ```bash
    nr start init -y
    ```
+
    This will download the files to `llms/{project}/`
 
 3. **Follow the generation guide** below to create the skills
@@ -168,8 +174,8 @@ Also record the version of the tool/project when the skills were generated.
 
 ```markdown
 ---
-name: {name}
-description: {description}
+name: { name }
+description: { description }
 metadata:
   author: Eamon Hyland
   version: "2026.1.1"
@@ -182,25 +188,25 @@ metadata:
 
 ## Core References
 
-| Topic | Description | Reference |
-|-------|-------------|-----------|
-| Markdown Syntax | Slide separators, frontmatter, notes, code blocks | [core-syntax](references/core-syntax.md) |
-| Animations | v-click, v-clicks, motion, transitions | [core-animations](references/core-animations.md) |
-| Headmatter | Deck-wide configuration options | [core-headmatter](references/core-headmatter.md) |
+| Topic           | Description                                       | Reference                                        |
+| --------------- | ------------------------------------------------- | ------------------------------------------------ |
+| Markdown Syntax | Slide separators, frontmatter, notes, code blocks | [core-syntax](references/core-syntax.md)         |
+| Animations      | v-click, v-clicks, motion, transitions            | [core-animations](references/core-animations.md) |
+| Headmatter      | Deck-wide configuration options                   | [core-headmatter](references/core-headmatter.md) |
 
 ## Features
 
 ### Feature a
 
-| Topic | Description | Reference |
-|-------|-------------|-----------|
-| Feature A Editor | Description of feature a | [feature-a](references/feature-a-foo.md) |
+| Topic             | Description              | Reference                                |
+| ----------------- | ------------------------ | ---------------------------------------- |
+| Feature A Editor  | Description of feature a | [feature-a](references/feature-a-foo.md) |
 | Feature A Preview | Description of feature b | [feature-b](references/feature-a-bar.md) |
 
 ### Feature b
 
-| Topic | Description | Reference |
-|-------|-------------|-----------|
+| Topic     | Description              | Reference                                |
+| --------- | ------------------------ | ---------------------------------------- |
 | Feature B | Description of feature b | [feature-b](references/feature-b-bar.md) |
 
 // ...
@@ -247,8 +253,8 @@ At the end of the file, include the reference links to the source documentation.
 
 ```markdown
 ---
-name: {name}
-description: {description}
+name: { name }
+description: { description }
 ---
 
 # {Concept Name}

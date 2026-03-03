@@ -12,8 +12,8 @@ tRPC provides a first-class integration for `@tanstack/react-query`.
 Create a type-safe context and provider.
 
 ```ts
-import { createTRPCContext } from '@trpc/tanstack-react-query';
-import type { AppRouter } from '../server/router';
+import { createTRPCContext } from "@trpc/tanstack-react-query";
+import type { AppRouter } from "../server/router";
 
 export const { TRPCProvider, useTRPC } = createTRPCContext<AppRouter>();
 ```
@@ -23,19 +23,19 @@ export const { TRPCProvider, useTRPC } = createTRPCContext<AppRouter>();
 Use standard `useQuery` and `useMutation` hooks with tRPC-generated options.
 
 ```tsx
-import { useQuery, useMutation } from '@tanstack/react-query';
-import { useTRPC } from '../utils/trpc';
+import { useQuery, useMutation } from "@tanstack/react-query";
+import { useTRPC } from "../utils/trpc";
 
 function MyComponent() {
   const trpc = useTRPC();
-  
-  const userQuery = useQuery(trpc.getUser.queryOptions({ id: '1' }));
+
+  const userQuery = useQuery(trpc.getUser.queryOptions({ id: "1" }));
   const userCreator = useMutation(trpc.createUser.mutationOptions());
 
   return (
     <div>
       {userQuery.data?.name}
-      <button onClick={() => userCreator.mutate({ name: 'Bob' })}>Add</button>
+      <button onClick={() => userCreator.mutate({ name: "Bob" })}>Add</button>
     </div>
   );
 }
@@ -46,7 +46,7 @@ function MyComponent() {
 Useful for SPAs (Vite, etc.) where you don't need SSR-aware context.
 
 ```ts
-import { createTRPCOptionsProxy } from '@trpc/tanstack-react-query';
+import { createTRPCOptionsProxy } from "@trpc/tanstack-react-query";
 
 export const trpc = createTRPCOptionsProxy<AppRouter>({
   client: trpcClient,

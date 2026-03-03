@@ -28,8 +28,8 @@ This WIP collection targets how I build hobby side projects / personal apps.
 
 Manually maintained by Eamon Hyland with his preferred tools, setup conventions, and best practices.
 
-| Skill | Description |
-|-------|-------------|
+| Skill                     | Description                                                            |
+| ------------------------- | ---------------------------------------------------------------------- |
 | [ehyland](skills/ehyland) | Eamon Hyland's preferences and best practices for app/library projects |
 
 ### Skills Generated from Official Documentation
@@ -38,20 +38,20 @@ Manually maintained by Eamon Hyland with his preferred tools, setup conventions,
 
 Generated from official documentation and fine-tuned by Eamon.
 
-| Skill | Description | Source |
-|-------|-------------|--------|
-| [vitest](skills/vitest) | Vitest - unit testing framework powered by Vite | [vitest-dev/vitest](https://github.com/vitest-dev/vitest) |
-| [trpc](skills/trpc) | trpc - atomic CSS engine, presets, transformers | [trpc/trpc](https://github.com/trpc/trpc) |
-| [mantine](skills/mantine) | Mantine UI - fully featured React components library | [mantine.dev](https://mantine.dev) |
+| Skill                     | Description                                          | Source                                                    |
+| ------------------------- | ---------------------------------------------------- | --------------------------------------------------------- |
+| [vitest](skills/vitest)   | Vitest - unit testing framework powered by Vite      | [vitest-dev/vitest](https://github.com/vitest-dev/vitest) |
+| [trpc](skills/trpc)       | trpc - atomic CSS engine, presets, transformers      | [trpc/trpc](https://github.com/trpc/trpc)                 |
+| [mantine](skills/mantine) | Mantine UI - fully featured React components library | [mantine.dev](https://mantine.dev)                        |
 
 ### Vendored Skills
 
 Synced from external repositories that maintain their own skills.
 
-| Skill | Description | Source |
-|-------|-------------|--------|
-| [tsdown](skills/tsdown) (Official) | tsdown - TypeScript library bundler powered by Rolldown | [rolldown/tsdown](https://github.com/rolldown/tsdown) |
-| [turborepo](skills/turborepo) (Official) | Turborepo - high-performance build system for monorepos | [vercel/turborepo](https://github.com/vercel/turborepo) |
+| Skill                                                 | Description                                             | Source                                                                  |
+| ----------------------------------------------------- | ------------------------------------------------------- | ----------------------------------------------------------------------- |
+| [tsdown](skills/tsdown) (Official)                    | tsdown - TypeScript library bundler powered by Rolldown | [rolldown/tsdown](https://github.com/rolldown/tsdown)                   |
+| [turborepo](skills/turborepo) (Official)              | Turborepo - high-performance build system for monorepos | [vercel/turborepo](https://github.com/vercel/turborepo)                 |
 | [web-design-guidelines](skills/web-design-guidelines) | Web design guidelines for building beautiful interfaces | [vercel-labs/agent-skills](https://github.com/vercel-labs/agent-skills) |
 
 ## Generate Your Own Skills
@@ -67,4 +67,3 @@ Fork this project to create your own customized skill collection.
 7. Ask your agent to `Generate skills for \<project\>` (recommended one at a time to manage token usage)
 
 See [AGENTS.md](AGENTS.md) for detailed generation guidelines.
-

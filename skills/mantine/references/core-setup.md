@@ -14,6 +14,7 @@ npm install @mantine/core @mantine/hooks
 ```
 
 PostCSS setup is required for Mantine 8:
+
 ```bash
 npm install postcss postcss-preset-mantine postcss-simple-vars
 ```
@@ -21,12 +22,12 @@ npm install postcss postcss-preset-mantine postcss-simple-vars
 ## Basic Setup
 
 ```tsx
-import '@mantine/core/styles.css';
-import { createTheme, MantineProvider } from '@mantine/core';
+import "@mantine/core/styles.css";
+import { createTheme, MantineProvider } from "@mantine/core";
 
 const theme = createTheme({
-  primaryColor: 'blue',
-  fontFamily: 'Open Sans, sans-serif',
+  primaryColor: "blue",
+  fontFamily: "Open Sans, sans-serif",
   // theme overrides
 });
 
@@ -42,6 +43,7 @@ function App() {
 ## Theme Object
 
 The Mantine theme object stores design tokens:
+
 - `colors`: 10-shade color palettes (0-9).
 - `primaryColor`: References a key in `colors`.
 - `primaryShade`: Default shade for light (`6`) and dark (`8`) modes.
@@ -65,8 +67,8 @@ const theme = createTheme({
   components: {
     Button: Button.extend({
       defaultProps: {
-        color: 'cyan',
-        variant: 'outline',
+        color: "cyan",
+        variant: "outline",
       },
     }),
   },
