@@ -16,6 +16,10 @@ Create a `.oxlintrc.json` file in the root of your project:
 ```json
 {
   "$schema": "./node_modules/oxlint/configuration_schema.json",
+  "options": {
+    "typeAware": true,
+    "typeCheck": true
+  },
   "plugins": ["typescript"],
   "rules": {
     "typescript/no-floating-promises": "error",
@@ -55,8 +59,8 @@ pnpm run fix
     "format": "oxfmt src",
     "format:check": "oxfmt src --check",
 
-    "lint": "oxlint --type-aware",
-    "lint:fix": "oxlint --type-aware --fix --fix-suggestions --fix-dangerously",
+    "lint": "oxlint",
+    "lint:fix": "oxlint --fix --fix-suggestions --fix-dangerously",
 
     "fix": "bun run --parallel 'format' 'lint:fix'"
   }
